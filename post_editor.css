@@ -1,0 +1,17 @@
+.mainContent{
+    margin: 0 auto;
+}
+
+#textContainer{
+    height: 50vh;
+    width: 50vh;
+    margin: 0 auto;
+    background-color: bisque;
+}
+
+h1{
+    background-color: red;
+    margin: 0 auto;
+    height: 10vh;
+    width: 50vh;
+}
