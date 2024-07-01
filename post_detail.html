@@ -133,6 +133,7 @@
                 document.getElementsByClassName("Err_contain")[0].style.display = "none";
                 document.body.setAttribute("data-err", "false");
             }
+            return errMsg;
         }
 
         function createTagElement(arrTags){
@@ -151,7 +152,7 @@
         }
 
         // Get the post, if post exist or 404 then show the err message.
-        getPosts().then(errMsg => {
+        getPosts().then(errMsg => getErrorMessage(errMsg)).then(errMsg => {
             const editor = new EditorJS({
                 holder: document.getElementById('editorjs'),
                 tools: {
@@ -230,7 +231,7 @@
             document.getElementById("post_auth").innerText = receivedData.author;
             document.getElementById("post_date").innerText = receivedData.createDate;
             return errMsg;
-        }).then(errMsg => getErrorMessage(errMsg));
+        });
     </script>
     
     <script src="app_pd.js">
