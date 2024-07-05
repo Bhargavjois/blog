@@ -98,7 +98,9 @@ input.addEventListener('keyup', function (event) {
       
         // Prevent the default action of the keypress 
         // event (submitting the form) 
-        event.preventDefault(); 
+        event.preventDefault();
+
+        console.log(event);
       
         // Create a new list item element for the tag 
         const tag = document.createElement('li'); 
