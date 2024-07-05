@@ -91,7 +91,9 @@ const tags = document.getElementById('tags');
 const input = document.getElementById('input-tag'); 
 
 // Add an event listener for keyup on the input element 
-input.addEventListener('keyup', function (event) { 
+input.addEventListener('input', function (event) { 
+
+    console.log(event);
 
     // Check if the key pressed is 'Enter' 
     if (event.key === 'Enter' || event.key === ',' || event.key === ' ' || event.key === '.') { 
@@ -99,9 +101,7 @@ input.addEventListener('keyup', function (event) {
         // Prevent the default action of the keypress 
         // event (submitting the form) 
         event.preventDefault();
-
-        console.log(event);
-      
+        
         // Create a new list item element for the tag 
         const tag = document.createElement('li'); 
       
