@@ -90,8 +90,8 @@ saveButton.addEventListener('click', () => {
 const tags = document.getElementById('tags'); 
 const input = document.getElementById('input-tag'); 
 
-// Add an event listener for keydown on the input element 
-input.addEventListener('keydown', function (event) { 
+// Add an event listener for keyup on the input element 
+input.addEventListener('keyup', function (event) { 
 
     // Check if the key pressed is 'Enter' 
     if (event.key === 'Enter' || event.key === ',' || event.key === ' ' || event.key === '.') { 
