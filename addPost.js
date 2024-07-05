@@ -90,6 +90,10 @@ saveButton.addEventListener('click', () => {
 const tags = document.getElementById('tags'); 
 const input = document.getElementById('input-tag'); 
 
+function removeCommasPeriods(str) {
+  return str.replace(/[,.]/g, "");
+}
+
 function handleTagInput(){
     
     // Prevent the default action of the keypress 
@@ -100,7 +104,7 @@ function handleTagInput(){
     const tag = document.createElement('li'); 
   
     // Get the trimmed value of the input element 
-    const tagContent = input.value.trim(); 
+    const tagContent = removeCommasPeriods(input.value.trim()); 
   
     // If the trimmed value is not an empty string 
     if (tagContent !== '') { 
