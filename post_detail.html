@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" data-page="post">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The new technologicol revolution: Exploration.</title>
+    <link rel="icon" href="blog.png" type="image/icon type">    
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <link rel="stylesheet" href="styles_post_detail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-code-highlight@1.2/dist/637.bundle.min.js"></script>
+    <script src="setDefault.js"></script>
+</head>
+<body data-err="true">
+    <div id="scrollStatus" class="scroll__status"></div>
+    <div class="fixed_options">
+        <button type="button" id="dark_light"  onclick="toggleTheme()">
+            <img src="dark.png" id="dark" alt="Dark Mode" width="100%" height="100%"/>
+            <img src="light.png" id="light" alt="Light Mode" width="100%" height="100%"/>
+        </button>
+        <button type="button" id="top" onclick="scrollToTop()">
+            <img src="back.png" alt="Scroll Top" width="100%" height="100%"/>
+        </button>
+    </div>
+    <header>
+        <h1><a href="index.html" style="font-size: clamp(18px, 2.5vw, 32px);">BV / blog</a></h1>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a class="no_mbl_ln" href="#">|</a>
+            <a href="explore.html">Explore</a>
+        </div>
+    </header>
+    <div class="article">
+        <ul id="tags_P"><li class="cate">Python</li></ul>
+        <h1 class="title" id="post_title">The new technologicol revolution: Exploration.</h1>
+        <div class="info_tile">
+            <p class="stat">&#8600; <span id="post_auth"></span> on <span id="post_date"></span>.</p>
+            <button id="cmt_btn" class="inte_btn">
+                <p><b>Comments (<span id="cmt_count"></span>)</b></p>
+            </button>
+        </div>
+        <div class="post_desc" id="editorjs">
+            
+        </div>
+    </div>
+    
+    <div id="comnts" class="comments">
+        <div class="cmt_head">
+            <h2>Comments (<span id="cmt_count_slide"></span>)</h2>
+            <button id="cls_cmts" class="cmt-cls" type="button">X</button>
+        </div></br></br>
+        <div class="comment_inputt">
+            <h3>Leave a comment.</h3></br>
+            <span><span id="emoji"></span><input id="cmt_name" type="text" placeholder="Name..."></span>
+            <textarea id="cmt_cmt" name="comment" id="comment" placeholder="Leave your comment here..."></textarea>
+            <div style="display: flex;justify-content: space-between; align-items: center;">
+                <button type="button" id="cmtnt_can" class="can_cmt">Cancel</button>
+                <button type="button" class="sub_cmt" id="sub_btn">Comment</button>
+            </div>
+        </div>
+        <div id="cmt_cont" style="width: 100%;">
+        </div>
+    </div>
+    <div class="Err_contain">
+        <div>
+            <h1 style="font-size: clamp(42px,5px,52px);" id="err_head">Post Not Found!</h1><br/><br/>
+            <h2 id="err"> Looks like you've hit a dead end... or should we say a "post"-mortem? Don't worry, 
+                there's plenty of other content to keep you "a-live"!</h2>
+        </div>
+    </div>
+    <div class="loading">
+        <span class="loader"></span>
+        <h2>Our Sherlock and James are working together for your post....</h2>
+    </div>
+    
+    <footer>
+        <p>&copy;Bhargav V, 2024</p>
+        <p>
+            <a href="https://bhargavvjois.github.io/Portfolio/#aboutme"> About me </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#projects"> Projects </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#connect"> Connect </a>
+        </p>
+    </footer>
+    <script>
+        let show = false;
+        document.getElementById("cls_cmts").addEventListener("click", (ev)=>{
+            if (!show){
+                document.getElementById("comnts").animate(
+                    {
+                        right: "-160px",
+                    }, { duration: 500, fill: 'forwards'}
+                )
+                show = true;
+            } else {
+                document.getElementById("comnts").animate(
+                    {
+                        right: "-700px",
+                    }, { duration: 500, fill: 'forwards'}
+                )
+                show = false;
+            }
+        })
+        document.getElementById("cmt_btn").addEventListener("click", (ev)=>{
+            if (!show){
+                document.getElementById("comnts").animate(
+                    {
+                        right: "-160px",
+                    }, { duration: 500, fill: 'forwards'}
+                )
+                show = true;
+            } else {
+                document.getElementById("comnts").animate(
+                    {
+                        right: "-700px",
+                    }, { duration: 500, fill: 'forwards'}
+                )
+                show = false;
+            }
+        })
+        
+        document.getElementById("cmtnt_can").addEventListener("click", (ev)=>{
+            document.getElementById("cmt_name").value = "";
+            document.getElementById("cmt_cmt").value = "";
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script><!-- List -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script><!-- Checklist -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script><!-- Quote -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script><!-- Code -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script><!-- Embed -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script><!-- Table -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script><!-- Link -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script><!-- Warning -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Simple Image -->
+    <script>
+        let receivedData = {};
+        let postDataAsJSON = {};
+
+        function getURLQueryString(){
+    
+            const url = window.location.href;
+
+            // Split the URL at the question mark
+            const parts = url.split("?");
+
+            // Assuming there's data after the question mark (safer approach to check first)
+            if (parts.length > 1) {
+                const queryString = parts[1];
+                return queryString;
+            } else {
+                return "Error";
+            }
+        }
+
+        async function getPosts() {
+            try {
+                const url = `https://blog-backend-0w7q.onrender.com/post/${getURLQueryString()}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                if (response.status != 200){
+                    return data.disp_msg;
+                } else {
+                    receivedData = data;
+                    postDataAsJSON = JSON.stringify(receivedData.data, null, 4);
+                    return "";
+                }
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+                return "500";
+            }
+        }
+
+        function getErrorMessage(errMsg){
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            if (errMsg == "500"){
+                document.getElementById("err_head").innerText = "T.T Error"
+                document.getElementById("err").innerText = "Oh no! We are in trouble, maybe an alien hacked our servers or it's January 19th, 2038. Already? Anyway, please try again later."  
+                document.getElementsByClassName("article")[0].style.display = "none";
+                document.getElementsByClassName("Err_contain")[0].style.display = "block";
+                document.body.setAttribute("data-err", "true");
+
+            } else if (errMsg != ""){
+                document.getElementById("err").innerText = errMsg;
+                document.getElementsByClassName("article")[0].style.display = "none";
+                document.getElementsByClassName("Err_contain")[0].style.display = "block";
+                document.body.setAttribute("data-err", "true");
+            } else {
+                document.getElementsByClassName("article")[0].style.display = "block";
+                document.getElementsByClassName("Err_contain")[0].style.display = "none";
+                document.body.setAttribute("data-err", "false");
+            }
+            return errMsg;
+        }
+
+        function formatDate(timestamp) {
+            
+            // Create a Date object from the timestamp
+            const date = new Date(timestamp);
+
+            // Extract individual components
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2,   
+            '0');
+
+            // Construct the standard format
+            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            return formattedDate;
+        }
+
+        function createTagElement(arrTags){
+            let tagsP = document.getElementById("tags_P");
+            let stringLI = "";
+
+            if (arrTags.length > 0){
+                arrTags.forEach(element => {
+                    stringLI += `<li class="cate">
+                            <a style="text-decoration:none;color:var(--color)" href="/explore_posts.html?${element.name}">
+                                ${element.name}
+                            </a>
+                        </li>`
+                })
+            }
+
+            tagsP.innerHTML = stringLI;
+        }
+
+        function addCommentCard(comment){
+            const commentContainer = document.getElementById("cmt_cont");
+
+            let cardDiv = document.createElement("p");
+            cardDiv.setAttribute("class", "cmt_card");
+
+            let nameH3 = document.createElement("h3");
+            nameH3.setAttribute("class", "user_id");
+            nameH3.textContent = `${generateRandomEmoji()} ${comment.name}`;
+
+            let nameP = document.createElement("p");
+            nameP.setAttribute("class", "comment");
+            nameP.textContent = `↪ ${comment.comment}`;
+            
+            cardDiv.appendChild(nameH3);
+            cardDiv.appendChild(nameP);
+            commentContainer.prepend(cardDiv);
+
+            document.getElementById("cmt_name").value = "";
+            document.getElementById("cmt_cmt").value = "";
+
+            submitButton.disabled = false;
+        }
+
+        // Get the post, if post exist or 404 then show the err message.
+        getPosts().then(errMsg => getErrorMessage(errMsg)).then(errMsg => {
+            const editor = new EditorJS({
+                holder: document.getElementById('editorjs'),
+                tools: {
+                    image: {
+                        class: SimpleImage,
+                        inlineToolbar: true,
+                        config: {
+                            placeholder: 'Paste image URL'
+                        }
+                    },
+                    header: {
+                        class: Header,
+                        inlineToolbar: ['marker', 'link'],
+                        config: {
+                            placeholder: 'Header',
+                            levels: [2,3],
+                            defaultLevel: 2
+                        },
+                        shortcut: 'CMD+SHIFT+H'
+                    },
+                    list: {
+                        class: List,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+SHIFT+L'
+                    },
+
+                    checklist: {
+                        class: Checklist,
+                        inlineToolbar: true,
+                    },
+
+                    quote: {
+                        class: Quote,
+                        inlineToolbar: true,
+                        config: {
+                            quotePlaceholder: 'Enter a quote',
+                            captionPlaceholder: 'Quote\'s author',
+                        },
+                        shortcut: 'CMD+SHIFT+O'
+                    },
+
+                    warning: Warning,
+
+                    marker: {
+                        class:  Marker,
+                        shortcut: 'CMD+SHIFT+M'
+                    },
+
+                    code: {
+                        class:  CodeTool,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+
+                    delimiter: Delimiter,
+
+                    inlineCode: {
+                        class: InlineCode,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+
+                    linkTool: LinkTool,
+
+                    embed: Embed,
+
+                    table: {
+                        class: Table,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+ALT+T'
+                    },
+                },
+                data: receivedData.content,
+                readOnly: true, // Set to true for displaying only
+            });
+            createTagElement(receivedData.tags);
+            console.log(receivedData.commensts)
+            document.getElementById("cmt_count").textContent = receivedData.commensts.length;
+            document.getElementById("cmt_count_slide").textContent = receivedData.commensts.length;
+            receivedData.commensts.forEach((comment) => {addCommentCard(comment)})
+            document.getElementById("post_title").innerText = receivedData.title;
+            document.getElementById("post_auth").innerText = receivedData.author;
+            document.getElementById("post_date").innerText = formatDate(receivedData.updated_at);
+            return errMsg;
+        })
+    </script>
+    
+    <script src="app_pd.js">
+    </script>
+</body>
+</html>

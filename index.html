@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" data-page="main">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BV: Blog</title>
+    <link rel="icon" href="blog.png" type="image/icon type">  
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="setDefault.js"></script>
+</head>
+<body>
+    <div id="scrollStatus" class="scroll__status"></div>
+    <div class="fixed_options">
+        <button type="button" id="dark_light"  onclick="toggleTheme()">
+            <img src="dark.png" id="dark" alt="Dark Mode" width="100%" height="100%"/>
+            <img src="light.png" id="light" alt="Light Mode" width="100%" height="100%"/>
+        </button>
+        <button type="button" id="top" onclick="scrollToTop()">
+            <img src="back.png" alt="Scroll Top" width="100%" height="100%"/>
+        </button>
+    </div>
+    <header>
+        <h1 class="heading"><a href="index.html">BV / blog</a></h1>
+        <nav>
+            <div class="blog__nav">
+                <div class="search only__mbl">
+                    <input id="search_input" type="text" placeholder="Press '/' to search..." autocomplete="off"/>
+                    <button id="search_button" type="button">Search</button>
+                </div>
+                <p class="only__mbl">|</p>
+                <p><button onclick='window.location.href= "/explore.html"'>Explore</button></p>
+            </div>
+        </nav>
+    </header>
+    <div class="search show__mbl">
+        <input id="search_input_mbl" type="text" placeholder="Search all posts..." autocomplete="off"/>
+        <button id="search_button_mbl" type="button">Search</button>
+    </div>
+    <article id="main__article">
+    </article>
+    <div class="Err_contain">
+        <div>
+            <h1 style="font-size: clamp(42px,5px,52px);" id="err_head">T.T Error 500</h1><br/><br/>
+            <h2 id="err">Oh no! We are in trouble, maybe an alien hacked our servers or it's January
+                 19th, 2038. Already? Anyway, please try again later.</h2>
+        </div>
+    </div>
+    <div class="loading">
+        <span class="loader"></span>
+        <h2>Our Sherlock and James are working together for your post....</h2>
+    </div>
+
+    <section class="pages">
+        <button class="first prev" onclick="firstPage()"><i class="fas fa-angle-double-left"></i></button>
+        <button class="previous prev" onclick="previousPage()"><i class="fas fa-angle-left"></i></button>
+        <button id="page_curr" class="curr">1</button>
+        <button class="next nxt" onclick="nextPage()"><i class="fas fa-angle-right"></i></button>
+        <button class="last nxt" onclick="lastPage()"><i class="fas fa-angle-double-right"></i></button>
+    </section>
+    <footer>
+        <p>&copy;Bhargav V, 2024</p>
+        <p>
+            <a href="https://bhargavvjois.github.io/Portfolio/#aboutme"> About me </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#projects"> Projects </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#connect"> Connect </a>
+        </p>
+    </footer>
+    <script src="app.js"></script>
+    <script>
+        function getSearchParameter(){
+
+            const url = window.location.href;
+
+            // Split the URL at the question mark
+            const parts = url.split(/[?,=]/);
+
+            if (parts.length > 2){
+                if (parts[2][0] == "&"){
+                    window.location.href = "/index.html";
+                }
+                if (!Number(parts[1])){
+                    return getURLQueryString();
+                }
+            }
+
+            return false;
+        }
+        function getURLQueryString(){
+    
+            const url = window.location.href;
+
+            // Split the URL at the question mark
+            const parts = url.split("?");
+
+            // Assuming there's data after the question mark (safer approach to check first)
+            if (parts.length > 1) {
+                if (parts[1].toLowerCase() == "search="){
+                    window.location.href = "/index.html";
+                }
+                const queryString = parts[1];
+                return queryString;
+            } else {
+                return NaN;
+            }
+        }
+        let numberPage = Number(getURLQueryString());
+        let currentPage = numberPage ? numberPage: 1;
+        let pageSize = 12;
+        let total = 0;
+        let fetched = 0;
+        let isSearch = false;
+        function formatNumber(number) {
+            return String(number).padStart(2, '0');
+        }
+
+        function slugify(title) {
+            return  title.toLowerCase()
+                        .replace(/[^\w\-]+/g, '-')  // Replace non-word and non-hyphen characters
+                        .replace(/\-\-+/g, '-')     // Replace multiple hyphens with a single hyphen
+                        .replace(/^-|-$/g, '');     // Remove leading and trailing hyphens
+        }
+
+        function formatDate(timestamp) {
+            
+            // Create a Date object from the timestamp
+            const date = new Date(timestamp);
+
+            // Extract individual components
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            // Construct the standard format
+            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            return formattedDate;
+        }
+
+        function processPages(){
+
+            if (total > pageSize){
+                document.getElementsByClassName("pages")[0].style.display = "flex";
+            } else {
+                document.getElementsByClassName("pages")[0].style.display = "none";
+            }
+
+            if (Number(currentPage) == 1){
+                document.getElementsByClassName("nxt")[0].style.display = "flex";
+                document.getElementsByClassName("nxt")[1].style.display = "none";
+                if (Number(currentPage) + 1 != Math.ceil(Number(total / pageSize))){
+                    document.getElementsByClassName("nxt")[1].style.display = "flex";
+                }
+                document.getElementsByClassName("prev")[0].style.display = "none";
+                document.getElementsByClassName("prev")[1].style.display = "none";
+            }
+
+            if (Number(currentPage) == Math.ceil(Number(total / pageSize))){
+                document.getElementsByClassName("nxt")[0].style.display = "none";
+                document.getElementsByClassName("nxt")[1].style.display = "none";
+                document.getElementsByClassName("prev")[0].style.display = "none";
+                if (Number(currentPage) != 2){
+                    document.getElementsByClassName("prev")[0].style.display = "flex";
+                }
+                document.getElementsByClassName("prev")[1].style.display = "flex";
+            }
+
+            if (Number(currentPage) < Math.ceil(Number(total / pageSize)) && Number(currentPage) != 1){
+                document.getElementsByClassName("prev")[1].style.display = "flex";
+                document.getElementsByClassName("prev")[0].style.display = "none";
+                if (Number(currentPage) != 2){
+                    document.getElementsByClassName("prev")[0].style.display = "flex";
+                }
+                document.getElementsByClassName("nxt")[0].style.display = "flex";
+                document.getElementsByClassName("nxt")[1].style.display = "none";
+                if (Number(currentPage) + 1 != Math.ceil(Number(total / pageSize))){
+                    document.getElementsByClassName("nxt")[1].style.display = "flex";
+                }
+            }
+        }
+
+        function createDOMList(data){
+            let i = currentPage * pageSize - pageSize;
+            document.getElementById("main__article").innerHTML = '';
+            data.posts.forEach(post => {
+
+                i = i + 1;
+
+                // Create div elements. 
+                const divPost = document.createElement('div');
+                const divPostNumber = document.createElement('div');
+                const divArrorCard = document.createElement('div');
+                const divPostInfo = document.createElement('div');
+
+                // Create heading elements.
+                const h1PostNumber = document.createElement('h1');
+                const h2ArticleHeading = document.createElement('h2');
+
+                // Create paragraph elements.
+                const pCate = document.createElement('p');
+                const pStat = document.createElement('p');
+
+                // Adding required classes to div elements.
+                divPost.classList.add("post");
+                divPostNumber.classList.add("post__number_div");
+                divArrorCard.classList.add("arrow_card");
+                divPostInfo.classList.add("post__info");
+
+                // Adding required classes to heading elements.
+                h1PostNumber.classList.add("post__number");
+                h2ArticleHeading.classList.add("article_heading");
+
+                // Adding required classes to paragraph elements.
+                pCate.classList.add("cate");
+                pStat.classList.add("stat");
+
+                // Using append to create proper main structure.
+                divPost.appendChild(divPostNumber);
+                divPost.appendChild(divPostInfo);
+                divPost.appendChild(divArrorCard);
+
+                // Append post number.
+                divPostNumber.appendChild(h1PostNumber);
+
+                // Append to create main post card.
+                divPostInfo.appendChild(pCate);
+                divPostInfo.appendChild(h2ArticleHeading);
+                divPostInfo.appendChild(pStat);
+
+                // Adding post number.
+                h1PostNumber.innerText = `${formatNumber(i)}.`;
+
+                // Adding post details.
+                pCate.innerHTML =`<span style="color: blueviolet;">&#8226;</span>`;
+                post.tags.map(tag => {
+                    pCate.innerHTML +=` ${tag.name} <span style="color: blueviolet;">&#8226;</span>`;
+                });
+                h2ArticleHeading.innerText = `${post.title}`;
+                pStat.innerHTML = ` &#8600; `;
+                pStat.innerText += `${post.author} on ${formatDate(post.updated_at)}`;
+
+                divPost.onclick = function(){
+                    window.location.href = `https://bvdevblog.vercel.app/post_detail.html?${slugify(post.title)}`;
+                }
+
+                // Finally append the created structure to main page.
+                document.getElementById("main__article").appendChild(divPost);
+
+                document.getElementById("page_curr").innerText = data.moreInfo.currentPage;
+            });
+
+            [...document.getElementsByClassName("post")].forEach(elem => {
+                elem.style.display = "flex";
+            })
+
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            
+            processPages();
+        }
+
+        async function getPosts() {
+            let url = `https://blog-backend-0w7q.onrender.com/page/${currentPage}`;
+
+            let searchParams = getSearchParameter();
+            if (searchParams){
+                url = `https://blog-backend-0w7q.onrender.com/search?${searchParams}`;
+                document.getElementById("search_input").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
+                document.getElementById("search_input_mbl").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
+                isSearch = true;
+            } else {
+                isSearch = false;
+            }
+            const response = await fetch(url);
+            const data = await response.json();
+            if (response.status != 200){
+                throw new Error(`Error fetching post: ${response.statusText}`);
+            } else {
+                receivedData = data;
+                currentPage = receivedData.moreInfo.currentPage;
+                pageSize = receivedData.moreInfo.size;
+                total = receivedData.moreInfo.totalCount;
+                fetched = receivedData.moreInfo.fetchedCount;
+                return receivedData;
+            }
+        }
+
+        function getMainPosts(){
+            getPosts()
+            .then(data => {
+                if (data.moreInfo.fetchedCount > 0){
+                    createDOMList(receivedData);
+                } else {
+                    throw new Error(404);
+                }
+            })
+            .catch(error => {
+                console.error("Some Error Occured while fetching:", error);
+                document.getElementsByClassName("loading")[0].style.display = "none";
+                document.getElementsByClassName("Err_contain")[0].style.display = "block";
+                if (error == "Error: 404"){
+                    document.getElementById("err_head").innerText = "Not Found!"
+                    document.getElementById("err").innerText = "Slow down, we couldn't catch you. Maybe the page you are looking for doesn't exist yet!"  
+                }
+            });
+        }
+
+        function nextPage(){
+            if (isSearch){
+                let searchParams = getSearchParameter();
+                let page = searchParams.split("page=")[1];
+                if (Number(page)){
+                    window.location.href = (window.location.href).replace(`page=${page}`, `page=${Number(page)+1}`);
+                } else {
+                    window.location.href = (window.location.href) + "&page=2";
+                }
+                return;
+            }
+            window.location.href = `/index.html?${Number(currentPage) + 1}`;
+        }
+
+        function previousPage(){
+            if (isSearch){
+                let searchParams = getSearchParameter();
+                let page = searchParams.split("page=")[1];
+                if (Number(page)){
+                    window.location.href = (window.location.href).replace(`page=${page}`, `page=${Number(page)-1}`);
+                } else {
+                    window.location.href = (window.location.href) + "&page=1";
+                }
+                return;
+            }
+            window.location.href = `/index.html?${Number(currentPage) - 1}`;
+        }
+
+        function lastPage(){
+            if (isSearch){
+                let searchParams = getSearchParameter();
+                let page = searchParams.split("page=")[1];
+                if (Number(page)){
+                    window.location.href = (window.location.href).replace(`page=${page}`, `page=${Math.ceil(Number(total / pageSize))}`);
+                } else {
+                    window.location.href = (window.location.href) + `&page=${Math.ceil(Number(total / pageSize))}`;
+                }
+                return;
+            }
+            window.location.href = `/index.html?${Math.ceil(Number(total / pageSize))}`;
+        }
+
+        function firstPage(){
+            if (isSearch){
+                let searchParams = getSearchParameter();
+                let page = searchParams.split("page=")[1];
+                if (Number(page)){
+                    window.location.href = (window.location.href).replace(`page=${page}`, `page=1`);
+                } else {
+                    window.location.href = (window.location.href) + "&page=1";
+                }
+                return;
+            }
+            window.location.href = "/index.html?1";
+        }
+
+        getMainPosts();
+    </script>
+    <script src="search.js"></script>
+</body>
+</html>

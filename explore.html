@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-page="main">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BV: Blog</title>
+    <link rel="icon" href="blog.png" type="image/icon type">  
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="setDefault.js"></script>
+</head>
+<body>
+    <style>
+        #tags_container{
+            padding: 1em 0;
+            min-height: 40vh;
+            display: none;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        .cate{
+            background-color: var(--extra-color);
+            display: inline-block;
+            border-radius: 50px;
+            margin-right: 5px;
+            margin-top: 10px;
+        }
+
+        .cate__btn{
+            font-size: clamp(10px, 5vw, 14px);
+            color: var(--color);
+            padding: 15px 20px;
+            font-weight: 800;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .count{
+            background-color: var(--color);
+            color: var(--bg-color);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            padding: 8px 15px;
+            margin-left: 10px;
+        }
+
+        .heading > a{
+            text-decoration: none;
+            color: var(--color);
+        }
+    </style>
+    <div id="scrollStatus" class="scroll__status"></div>
+    <div class="fixed_options">
+        <button type="button" id="dark_light"  onclick="toggleTheme()">
+            <img src="dark.png" id="dark" alt="Dark Mode" width="100%" height="100%"/>
+            <img src="light.png" id="light" alt="Light Mode" width="100%" height="100%"/>
+        </button>
+        <button type="button" id="top" onclick="scrollToTop()">
+            <img src="back.png" alt="Scroll Top" width="100%" height="100%"/>
+        </button>
+    </div>
+    <header>
+        <h1 class="heading"><a href="index.html">BV / blog</a></h1>
+        <nav>
+            <div class="blog__nav">
+                <div class="search only__mbl">
+                    <input id="search_input" type="text" placeholder="Press '/' to search..." autocomplete="off"/>
+                    <button type="button" id="search_button">Search</button>
+                </div>
+                <p class="only__mbl">|</p>
+                <p><button onclick='window.location.href= "/index.html"'>Home</button></p>
+            </div>
+        </nav>
+    </header>
+    <div class="search show__mbl">
+        <input id="search_input_mbl" type="text" placeholder="Search all posts..." autocomplete="off"/>
+        <button id="search_button_mbl" type="button">Search</button>
+    </div>
+    <div id="exp_div" style="margin:auto;max-width:900px;display:none;">
+        <h1 id="explore_tag" style="color:var(--color); font-size: clamp(36px, 5vw, 48px);">Explore</h1>
+        <h3 id="explore_tag_h3" style="color:var(--color); font-size: clamp(18px, 5vw, 24px);font-weight: 500;">Navigate through our blog with our tags!</h3>
+    </div>
+    <div id="tags_container">
+        <ul id="tags_P"></ul>
+    </div>
+    <div class="Err_contain">
+        <div>
+            <h1 style="font-size: clamp(42px,5px,52px);" id="err_head">T.T Error 500</h1><br/><br/>
+            <h2 id="err">Oh no! We are in trouble, maybe an alien hacked our servers or it's January
+                 19th, 2038. Already? Anyway, please try again later.</h2>
+        </div>
+    </div>
+    <div class="loading" id="loader">
+        <span class="loader"></span>
+        <h2>Please wait while we are working on fetching all the tags available . . .</h2>
+    </div>
+    <footer>
+        <p>&copy;Bhargav V, 2024</p>
+        <p>
+            <a href="https://bhargavvjois.github.io/Portfolio/#aboutme"> About me </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#projects"> Projects </a>
+            <span>&#x2022;</span>
+            <a href="https://bhargavvjois.github.io/Portfolio/#connect"> Connect </a>
+        </p>
+    </footer>
+    <script src="app.js"></script>
+    <script>
+
+        function searchPosts(){
+            const query = document.getElementById("search_input").value;
+
+            window.location.href = `/index.html?search=${query}`;
+        }
+
+        function goToPage(name){
+            window.location.href = `https://bvdevblog.vercel.app/explore_posts.html?${name}?1`;
+        }
+
+        function createTagElement(arrTags){
+            let tagsP = document.getElementById("tags_P");
+
+            let stringLI = "";
+
+            if (arrTags.length > 0){
+                arrTags.forEach(element => {
+
+                    // Create the main list item element
+                    const li = document.createElement('li');
+                    li.classList.add('cate');
+
+                    // Create the button element
+                    const button = document.createElement('button');
+                    button.classList.add('cate__btn');
+                    button.type = 'button';
+
+                    // Set the button click event handler
+                    button.onclick = function() {
+                        goToPage(element.tag_name);
+                    };
+
+                    // Add the category name text to the button
+                    const buttonText = document.createTextNode(element.tag_name);
+                    button.appendChild(buttonText);
+
+                    // Create the span element for the count
+                    const span = document.createElement('span');
+                    span.classList.add('count');
+
+                    // Add the count text to the span
+                    const countText = document.createTextNode(element.post_count);
+                    span.appendChild(countText);
+
+                    // Append the span to the button
+                    button.appendChild(span);
+
+                    // Finally, append the button to the list item
+                    li.appendChild(button);
+                    
+                    // Append the created li to ul element.
+                    tagsP.appendChild(li);
+                })
+            }
+        }
+
+        async function getTags() {
+            const url = `https://blog-backend-0w7q.onrender.com/explore`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (response.status != 200){
+                return data.message;
+                throw new Error(`Error fetching tags: ${response.statusText}`);
+            } else {
+                document.getElementById("loader").style.display = "none";
+                createTagElement(data.tags);
+                document.getElementById("tags_container").style.display = "block";
+                document.getElementById("exp_div").style.display = "block";
+            }
+        }
+
+        getTags();
+    </script>
+    <script src="search.js"></script>
+</body>
+</html>
