@@ -53,8 +53,8 @@
         </div></br></br>
         <div class="comment_inputt">
             <h3>Leave a comment.</h3></br>
-            <span><span id="emoji"></span><input id="cmt_name" type="text" placeholder="Name..."></span>
-            <textarea id="cmt_cmt" name="comment" id="comment" placeholder="Leave your comment here..." style="resize: vertical;"></textarea>
+            <span><span id="emoji"></span><input id="cmt_name" type="text" placeholder="Name..." required></span>
+            <textarea id="cmt_cmt" name="comment" id="comment" placeholder="Leave your comment here..." style="resize: vertical;" required></textarea>
             <div style="display: flex;justify-content: space-between; align-items: center;">
                 <button type="button" id="cmtnt_can" class="can_cmt">Cancel</button>
                 <button type="button" class="sub_cmt" id="sub_btn">Comment</button>
@@ -91,7 +91,7 @@
             if (!show){
                 document.getElementById("comnts").animate(
                     {
-                        right: "-160px",
+                        right: "0px",
                     }, { duration: 500, fill: 'forwards'}
                 )
                 show = true;
@@ -103,6 +103,7 @@
                 )
                 show = false;
             }
+            toggleDiv(show);
         })
         document.getElementById("cmt_btn").addEventListener("click", (ev)=>{
             if (!show){
@@ -120,6 +121,7 @@
                 )
                 show = false;
             }
+            toggleDiv(show);
         })
         
         document.getElementById("cmtnt_can").addEventListener("click", (ev)=>{
@@ -349,6 +351,33 @@
     </script>
     
     <script src="app_pd.js">
+    </script>
+    <script>
+        function isTouchDevice() {
+            return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+        }
+
+        function disableScroll() {
+            document.body.style.height = "100vh"
+            document.body.style.overflow = 'hidden'; // Disable scroll on touch devices
+        }
+
+        function enableScroll() {
+            document.body.style.height = "auto"
+            document.body.style.overflow = ''; // Enable scroll again
+        }
+
+        var absoluteDiv = document.getElementById("comnts");
+
+        function toggleDiv() {
+            if (show) {
+                if (isTouchDevice()) {
+                    disableScroll();
+                }
+            } else {
+                enableScroll();
+            }
+        }
     </script>
 </body>
 </html>

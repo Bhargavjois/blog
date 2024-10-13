@@ -156,7 +156,7 @@ function addNewCommentCard(comment){
 
 
 const submitButton = document.getElementById("sub_btn");
-submitButton.addEventListener("click", async (ev) => {
+submitButton.addEventListener("click", (ev) => {
 
     submitButton.disabled = true;
 
@@ -166,14 +166,25 @@ submitButton.addEventListener("click", async (ev) => {
 
     const name = document.getElementById("cmt_name").value;
     const comment = document.getElementById("cmt_cmt").value;
-    const postId =receivedData.id;
+    const postId = receivedData.id;
+    console.log(name, comment);
 
+    if (!name || !comment ){
+        submitButton.disabled = false;
+        return;
+    }
+    
     commentData = {
         name: name,
         comment: comment,
         postid: postId,
     };
 
+    addComment(commentData);
+});
+
+const addComment = async (commentData) => {
+    
     try {
         const url = `https://blog-backend-0w7q.onrender.com/add-comment`;
         const response = await fetch(url, {
@@ -193,6 +204,6 @@ submitButton.addEventListener("click", async (ev) => {
         console.error("Error fetching posts:", error);
         return "500";
     }
-});
+}
 
 setDefaultTheme();
