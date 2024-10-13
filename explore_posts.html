@@ -31,8 +31,10 @@
                     <input id="search_input" type="text" placeholder="Press '/' to search..." autocomplete="off"/>
                     <button type="button" id="search_button">Search</button>
                 </div>
-                <p class="only__mbl">|</p>
-                <p><button onclick='window.location.href= "/explore.html"'>Explore</button></p>
+                <div class="link_nav">
+                    <p class="only__mbl">|</p>
+                    <a href="/explore.html">Explore</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -43,7 +45,7 @@
     <div style="margin: 0 auto;max-width: 900px;">
     <h1 id="explore_tag" style="color:var(--color); font-size: clamp(36px, 5vw, 48px);display: none;"></h1>
     <h3 id="explore_tag_h3" style="color:var(--color); font-size: clamp(18px, 5vw, 24px);font-weight: 500;display: none;">Explore all our <span id="explore_tag__span"></span> related posts!</h3>
-    <article id="main__article">
+    <article id="main__article" class="explore_posts">
     </article>
     <div class="Err_contain">
         <div>

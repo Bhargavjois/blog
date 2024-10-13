@@ -126,16 +126,25 @@ nav{
     gap: 1em;
 }
 
-.blog__nav > p > button{
+.link_nav{
+    height: 100%;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.link_nav > a{
     font-weight: 800;
-    font-size: clamp(12px, 2.5vw, 18px);
+    font-size: clamp(16px, 2.5vw, 22px);
     background: transparent;
     border: none;
     outline: none;
+    text-decoration: none;
     color: var(--color);
 }
 
-.blog__nav > p > button:hover{
+.link_nav > a:hover{
     color: blueviolet;
 }
 
@@ -162,7 +171,7 @@ nav{
 
 .search > button{
     font-weight: 800;
-    font-size: clamp(12px, 2.5vw, 18px);
+    font-size: clamp(14px, 2.5vw, 18px);
     background: transparent;
     border: none;
     outline: none;
@@ -182,6 +191,10 @@ article{
 
 .article__desc{
     display: none;
+}
+
+.explore_posts{
+    padding-top: 3em;
 }
 
 .post{
@@ -421,6 +434,7 @@ p.cate{
     }
 
     article{
+        padding-top: 0;
         display: block;
     }
     
@@ -433,6 +447,7 @@ p.cate{
 
     .show__mbl > input{
         width: 70%;
+        font-size: 12px;
     }
 }
 
@@ -488,10 +503,6 @@ p.cate{
 
     .heading{
         font-size: large;
-    }
-
-    .blog__nav > p > a{
-        font-size: small;
     }
 
     .pages{
