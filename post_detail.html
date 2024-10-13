@@ -54,7 +54,7 @@
         <div class="comment_inputt">
             <h3>Leave a comment.</h3></br>
             <span><span id="emoji"></span><input id="cmt_name" type="text" placeholder="Name..."></span>
-            <textarea id="cmt_cmt" name="comment" id="comment" placeholder="Leave your comment here..."></textarea>
+            <textarea id="cmt_cmt" name="comment" id="comment" placeholder="Leave your comment here..." style="resize: vertical;"></textarea>
             <div style="display: flex;justify-content: space-between; align-items: center;">
                 <button type="button" id="cmtnt_can" class="can_cmt">Cancel</button>
                 <button type="button" class="sub_cmt" id="sub_btn">Comment</button>
@@ -108,7 +108,7 @@
             if (!show){
                 document.getElementById("comnts").animate(
                     {
-                        right: "-160px",
+                        right: "0px",
                     }, { duration: 500, fill: 'forwards'}
                 )
                 show = true;

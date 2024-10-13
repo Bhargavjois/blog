@@ -133,10 +133,10 @@ header a{
     color: var(--color);
     backdrop-filter: blur(10px);
     overflow-y: scroll;
+    z-index: 10;
 }
 
 .cmt_head{
-    width: 73%;
     display: flex; 
     justify-content: space-between;
     align-items: center;
@@ -161,7 +161,6 @@ header a{
 }
 
 .cmt_card{
-    width: 73%;
     padding-top: 25px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.5);
@@ -172,7 +171,6 @@ header a{
 }
 
 .comment_inputt{
-    width: 73%;
     display: flex;
     flex-direction: column;
     box-shadow: 4px 4px 0px 0px var(--bg-color);
@@ -485,11 +483,15 @@ footer > p > a, footer > p > span{
     }
     
     .comments{
-        width: 500px;
+        width: 100%;
     }
 
     .comments > div, .cmt_head{
-        width: 68%;
+        width: 100%;
+    }
+
+    .cmt_card{
+        width: 100%;
     }
 
     footer > p{
