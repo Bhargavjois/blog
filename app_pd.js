@@ -1,4 +1,3 @@
-
 let previousScrollPos = 0;
 let currentTheme = 0;
 
@@ -54,7 +53,7 @@ const handleScroll = function() {
 handleScroll();
 
 function showHideTopButton(pos){
-    if ((document.getElementById("top").style.display == "block" || document.getElementById("top").style.display == "") 
+    if ((document.getElementById("top").style.display == "block" || document.getElementById("top").style.display == "")
             && pos === 0){
         document.getElementById("top").animate(
             {
@@ -107,7 +106,7 @@ function scrollToTop(){
 function setDefaultTheme(){
 
     const savedMode = localStorage.getItem('themeMode');
-    
+
     if (savedMode == "Light"){
         document.getElementById("dark").style.display = "none";
         currentTheme = 1;
@@ -121,14 +120,13 @@ function generateRandomEmoji() {
     const emojis = [
       "😀", "😁", "😉", "😊", "🙂", "😍", "🥰", "🤩", "😎", "🤠"
     ];
-  
+
     const randomIndex = Math.floor(Math.random() * emojis.length);
     return emojis[randomIndex];
-  }
-  
-  const randomEmoji = generateRandomEmoji();
-  document.getElementById("emoji").innerText = randomEmoji;
+}
 
+const randomEmoji = generateRandomEmoji();
+document.getElementById("emoji").innerText = randomEmoji;
 
 function addNewCommentCard(comment){
     const commentContainer = document.getElementById("cmt_cont");
@@ -154,7 +152,6 @@ function addNewCommentCard(comment){
     submitButton.disabled = false;
 }
 
-
 const submitButton = document.getElementById("sub_btn");
 submitButton.addEventListener("click", (ev) => {
 
@@ -173,7 +170,7 @@ submitButton.addEventListener("click", (ev) => {
         submitButton.disabled = false;
         return;
     }
-    
+
     commentData = {
         name: name,
         comment: comment,
@@ -184,9 +181,9 @@ submitButton.addEventListener("click", (ev) => {
 });
 
 const addComment = async (commentData) => {
-    
+
     try {
-        const url = `https://blog-backend-0w7q.onrender.com/add-comment`;
+        const url = `https://blogbackend-production-5dc1.up.railway.app/add-comment`;
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -17,7 +17,7 @@ function getURLQueryString(){
 
 async function getPosts() {
     try {
-      const url = `https://blog-backend-0w7q.onrender.com/post/${getURLQueryString()}`; // Replace with your actual API endpoint
+      const url = `https://blogbackend-production-5dc1.up.railway.app/post/${getURLQueryString()}`; // Replace with your actual API endpoint
       const response = await fetch(url);
       const data = await response.json();
       if (response.status != 200){
@@ -25,7 +25,7 @@ async function getPosts() {
         // Save the mode to local storage.
         localStorage.setItem('errMsg', data.disp_msg);
       } else {
-        
+
         // Save the mode to local storage.
         localStorage.setItem('errMsg', "");
       }

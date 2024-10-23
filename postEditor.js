@@ -6,25 +6,18 @@ let newParagraph;
 let isHeadingAdded = false, toAddHeading = true;
 
 const disallowedKeys = [
-                            "Tab", "Unidentified", "AudioVolumeMute", "AudioVolumeDown", 
-                            "MediaTrackNext", "MediaPlayPause", "MediaTrackPrevious", "AudioVolumeUp", "Alt", "End", 
-                            "Delete", "Insert", "Home", "PageUp", "PageDown", "ArrowUp", "ArrowDown", "ArrowLeft", 
+                            "Tab", "Unidentified", "AudioVolumeMute", "AudioVolumeDown",
+                            "MediaTrackNext", "MediaPlayPause", "MediaTrackPrevious", "AudioVolumeUp", "Alt", "End",
+                            "Delete", "Insert", "Home", "PageUp", "PageDown", "ArrowUp", "ArrowDown", "ArrowLeft",
                             "ArrowRight", "NumLock", "CapsLock", "ScrollLock", "Escape"
                         ];
 const disallowedFkeys = ["F1", "F2","F3","F4","F5","F6","F7","F8","F9","F10","F11", "F12"];
 
 
 function isKeyAllowed(ev){
-    if (
-        ev.ctrlKey || ev.key == "CapsLock" || 
-        ev.key == "NumLock" || ev.metaKey || 
-        disallowedKeys.includes(ev.key) || disallowedFkeys.includes(ev.key)
-    )
-    {
-        return false;
-    } else {
-        return true;
-    }
+    return !(ev.ctrlKey || ev.key == "CapsLock" ||
+        ev.key == "NumLock" || ev.metaKey ||
+        disallowedKeys.includes(ev.key) || disallowedFkeys.includes(ev.key));
 }
 
 document.getElementById("textHeading").onclick = (e) => {
@@ -39,12 +32,12 @@ window.onkeydown = function(ev){
     if (!isKeyAllowed(ev)){
         return;
     }
-    
+
     if (toAddHeading){
         addTextToHeading(ev);
         return;
     }
-    
+
     addTextToWindow(ev);
 }
 
@@ -60,7 +53,7 @@ function addTextToHeading(event){
         return;
     }
 
-    if (makeUpperNext == true){
+    if (makeUpperNext){
         event.key = event.key.toUpperCase();
     }
 
@@ -68,7 +61,7 @@ function addTextToHeading(event){
         toAddHeading = false;
         return;
     }
-    
+
     document.getElementById("textHeading").textContent += event.key;
 }
 
@@ -96,7 +89,7 @@ function addTextToWindow(event)
         return;
     }
 
-    if (makeUpperNext == true){
+    if (makeUpperNext){
         event.key = event.key.toUpperCase();
     }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The new technologicol revolution: Exploration.</title>
-    <link rel="icon" href="blog.png" type="image/icon type">    
+    <link rel="icon" href="blog.png" type="image/icon type">
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <link rel="stylesheet" href="styles_post_detail.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,10 +42,10 @@
             </button>
         </div>
         <div class="post_desc" id="editorjs">
-            
+
         </div>
     </div>
-    
+
     <div id="comnts" class="comments">
         <div class="cmt_head">
             <h2>Comments (<span id="cmt_count_slide"></span>)</h2>
@@ -66,7 +66,7 @@
     <div class="Err_contain">
         <div>
             <h1 style="font-size: clamp(42px,5px,52px);" id="err_head">Post Not Found!</h1><br/><br/>
-            <h2 id="err"> Looks like you've hit a dead end... or should we say a "post"-mortem? Don't worry, 
+            <h2 id="err"> Looks like you've hit a dead end... or should we say a "post"-mortem? Don't worry,
                 there's plenty of other content to keep you "a-live"!</h2>
         </div>
     </div>
@@ -74,7 +74,7 @@
         <span class="loader"></span>
         <h2>Our Sherlock and James are working together for your post....</h2>
     </div>
-    
+
     <footer>
         <p>&copy;Bhargav V, 2024</p>
         <p>
@@ -123,7 +123,7 @@
             }
             toggleDiv(show);
         })
-        
+
         document.getElementById("cmtnt_can").addEventListener("click", (ev)=>{
             document.getElementById("cmt_name").value = "";
             document.getElementById("cmt_cmt").value = "";
@@ -147,7 +147,7 @@
         let postDataAsJSON = {};
 
         function getURLQueryString(){
-    
+
             const url = window.location.href;
 
             // Split the URL at the question mark
@@ -164,7 +164,7 @@
 
         async function getPosts() {
             try {
-                const url = `https://blog-backend-0w7q.onrender.com/post/${getURLQueryString()}`;
+                const url = `https://blogbackend-production-5dc1.up.railway.app/post/${getURLQueryString()}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 if (response.status != 200){
@@ -184,7 +184,7 @@
             document.getElementsByClassName("loading")[0].style.display = "none";
             if (errMsg == "500"){
                 document.getElementById("err_head").innerText = "T.T Error"
-                document.getElementById("err").innerText = "Oh no! We are in trouble, maybe an alien hacked our servers or it's January 19th, 2038. Already? Anyway, please try again later."  
+                document.getElementById("err").innerText = "Oh no! We are in trouble, maybe an alien hacked our servers or it's January 19th, 2038. Already? Anyway, please try again later."
                 document.getElementsByClassName("article")[0].style.display = "none";
                 document.getElementsByClassName("Err_contain")[0].style.display = "block";
                 document.body.setAttribute("data-err", "true");
@@ -203,7 +203,7 @@
         }
 
         function formatDate(timestamp) {
-            
+
             // Create a Date object from the timestamp
             const date = new Date(timestamp);
 
@@ -213,7 +213,7 @@
             const day = String(date.getDate()).padStart(2, '0');
             const hours = String(date.getHours()).padStart(2, '0');
             const minutes = String(date.getMinutes()).padStart(2, '0');
-            const seconds = String(date.getSeconds()).padStart(2,   
+            const seconds = String(date.getSeconds()).padStart(2,  
             '0');
 
             // Construct the standard format
@@ -252,7 +252,7 @@
             let nameP = document.createElement("p");
             nameP.setAttribute("class", "comment");
             nameP.textContent = `↪ ${comment.comment}`;
-            
+
             cardDiv.appendChild(nameH3);
             cardDiv.appendChild(nameP);
             commentContainer.prepend(cardDiv);
@@ -349,7 +349,7 @@
             return errMsg;
         })
     </script>
-    
+
     <script src="app_pd.js">
     </script>
     <script>

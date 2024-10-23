@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BV: Blog</title>
-    <link rel="icon" href="blog.png" type="image/icon type">  
+    <link rel="icon" href="blog.png" type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,7 +94,7 @@
             return false;
         }
         function getURLQueryString(){
-    
+
             const url = window.location.href;
 
             // Split the URL at the question mark
@@ -129,7 +129,7 @@
         }
 
         function formatDate(timestamp) {
-            
+
             // Create a Date object from the timestamp
             const date = new Date(timestamp);
 
@@ -196,7 +196,7 @@
 
                 i = i + 1;
 
-                // Create div elements. 
+                // Create div elements.
                 const divPost = document.createElement('div');
                 const divPostNumber = document.createElement('div');
                 const divArrorCard = document.createElement('div');
@@ -264,16 +264,16 @@
             })
 
             document.getElementsByClassName("loading")[0].style.display = "none";
-            
+
             processPages();
         }
 
         async function getPosts() {
-            let url = `https://blog-backend-0w7q.onrender.com/page/${currentPage}`;
+            let url = `https://blogbackend-production-5dc1.up.railway.app/page/${currentPage}`;
 
             let searchParams = getSearchParameter();
             if (searchParams){
-                url = `https://blog-backend-0w7q.onrender.com/search?${searchParams}`;
+                url = `https://blogbackend-production-5dc1.up.railway.app/search?${searchParams}`;
                 document.getElementById("search_input").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 document.getElementById("search_input_mbl").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 isSearch = true;
@@ -309,7 +309,7 @@
                 document.getElementsByClassName("Err_contain")[0].style.display = "block";
                 if (error == "Error: 404"){
                     document.getElementById("err_head").innerText = "Not Found!"
-                    document.getElementById("err").innerText = "Slow down, we couldn't catch you. Maybe the page you are looking for doesn't exist yet!"  
+                    document.getElementById("err").innerText = "Slow down, we couldn't catch you. Maybe the page you are looking for doesn't exist yet!"
                 }
             });
         }

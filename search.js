@@ -25,7 +25,6 @@ document.body.addEventListener("keydown", (event) => {
     if (event.key == "/"){
         event.preventDefault();
         const query = document.getElementById("search_input");
-        const previousValue = query.value;
         query.focus();
     }
 })
