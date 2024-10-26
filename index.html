@@ -259,11 +259,11 @@
         }
 
         async function getPosts() {
-            let url = `http://127.0.0.1:3000/page/${currentPage}`;//`https://blogbackend-production-5dc1.up.railway.app/page/${currentPage}`;
+            let url = `https://blogbackend-production-5dc1.up.railway.app/page/${currentPage}`;
 
             let searchParams = getSearchParameter();
             if (searchParams){
-                url = `http://127.0.0.1:3000/search?${searchParams}`;//`https://blogbackend-production-5dc1.up.railway.app/search?${searchParams}`;
+                url = `https://blogbackend-production-5dc1.up.railway.app/search?${searchParams}`;
                 document.getElementById("search_input").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 document.getElementById("search_input_mbl").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 isSearch = true;
