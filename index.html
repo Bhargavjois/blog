@@ -198,12 +198,10 @@
 
                 // Create div elements.
                 const divPost = document.createElement('div');
-                const divPostNumber = document.createElement('div');
-                const divArrorCard = document.createElement('div');
                 const divPostInfo = document.createElement('div');
+                const divInfoFlex = document.createElement('div');
 
                 // Create heading elements.
-                const h1PostNumber = document.createElement('h1');
                 const h2ArticleHeading = document.createElement('h2');
 
                 // Create paragraph elements.
@@ -212,12 +210,10 @@
 
                 // Adding required classes to div elements.
                 divPost.classList.add("post");
-                divPostNumber.classList.add("post__number_div");
-                divArrorCard.classList.add("arrow_card");
                 divPostInfo.classList.add("post__info");
+                divInfoFlex.classList.add("infoFlex");
 
                 // Adding required classes to heading elements.
-                h1PostNumber.classList.add("post__number");
                 h2ArticleHeading.classList.add("article_heading");
 
                 // Adding required classes to paragraph elements.
@@ -225,20 +221,14 @@
                 pStat.classList.add("stat");
 
                 // Using append to create proper main structure.
-                divPost.appendChild(divPostNumber);
                 divPost.appendChild(divPostInfo);
-                divPost.appendChild(divArrorCard);
-
-                // Append post number.
-                divPostNumber.appendChild(h1PostNumber);
 
                 // Append to create main post card.
                 divPostInfo.appendChild(pCate);
-                divPostInfo.appendChild(h2ArticleHeading);
-                divPostInfo.appendChild(pStat);
 
-                // Adding post number.
-                h1PostNumber.innerText = `${formatNumber(i)}.`;
+                divInfoFlex.appendChild(h2ArticleHeading);
+                divInfoFlex.appendChild(pStat);
+                divPostInfo.appendChild(divInfoFlex);
 
                 // Adding post details.
                 pCate.innerHTML =`<span style="color: blueviolet;">&#8226;</span>`;
@@ -247,7 +237,7 @@
                 });
                 h2ArticleHeading.innerText = `${post.title}`;
                 pStat.innerHTML = ` &#8600; `;
-                pStat.innerText += `${post.author} on ${formatDate(post.updated_at)}`;
+                pStat.innerText += `${formatDate(post.updated_at)}`;
 
                 divPost.onclick = function(){
                     window.location.href = `https://bvdevblog.vercel.app/post_detail.html?${slugify(post.title)}`;
@@ -269,11 +259,11 @@
         }
 
         async function getPosts() {
-            let url = `https://blogbackend-production-5dc1.up.railway.app/page/${currentPage}`;
+            let url = `http://127.0.0.1:3000/page/${currentPage}`;//`https://blogbackend-production-5dc1.up.railway.app/page/${currentPage}`;
 
             let searchParams = getSearchParameter();
             if (searchParams){
-                url = `https://blogbackend-production-5dc1.up.railway.app/search?${searchParams}`;
+                url = `http://127.0.0.1:3000/search?${searchParams}`;//`https://blogbackend-production-5dc1.up.railway.app/search?${searchParams}`;
                 document.getElementById("search_input").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 document.getElementById("search_input_mbl").value = searchParams.split(/[&,=]/)[1].replaceAll('%20', ' ');
                 isSearch = true;
@@ -285,6 +275,7 @@
             if (response.status != 200){
                 throw new Error(`Error fetching post: ${response.statusText}`);
             } else {
+                console.log(data);
                 receivedData = data;
                 currentPage = receivedData.moreInfo.currentPage;
                 pageSize = receivedData.moreInfo.size;

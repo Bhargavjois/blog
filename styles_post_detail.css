@@ -10,8 +10,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-  
-body, 
+
+body,
 html{
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -137,7 +137,7 @@ header a{
 }
 
 .cmt_head{
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 25px;
@@ -192,7 +192,7 @@ header a{
 .can_cmt:hover, .can_cmt:active{
     color: blueviolet;
     -webkit-text-stroke: 1px var(--bg-color);
-    text-stroke: 1px var(--bg-color);  
+    text-stroke: 1px var(--bg-color);
 }
 
 .sub_cmt{
@@ -259,7 +259,7 @@ header a{
     cursor: pointer;
     transition: all linear 200ms;
 }
-  
+
 .article{
     position: relative;
     z-index: -1;
@@ -427,8 +427,15 @@ footer > p > a, footer > p > span{
 }
 
 .ce-code__textarea{
-    background-color: var(--extra-color);
-    color: var(--color);
+    background-color: var(--extra-color) !important;
+    color: var(--color) !important;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.ce-code__textarea::-webkit-scrollbar {
+    display: none;
 }
 
 .cdx-simple-image__picture--with-background {
@@ -454,7 +461,7 @@ footer > p > a, footer > p > span{
     100% {
         transform: rotate(360deg);
     }
-} 
+}
 
 @media only screen and (max-width: 600px) {
     .nav{
@@ -465,7 +472,7 @@ footer > p > a, footer > p > span{
     header{
         padding-top: 2em;
     }
-    
+
     .no_mbl_ln{
         display: none;
     }
@@ -477,11 +484,11 @@ footer > p > a, footer > p > span{
     .article{
         padding-top: 1em;
     }
-    
+
     .info_tile{
         justify-content: flex-end;
     }
-    
+
     .comments{
         width: 100%;
     }
