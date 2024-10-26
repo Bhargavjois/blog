@@ -351,6 +351,7 @@ body[data-err="true"]{
     padding: 10px 20px 10px 20px;
     border-radius: 50px;
     margin-right: 5px;
+    margin-top: 5px;
 }
 
 .title{
